@@ -7,12 +7,15 @@ export const SIGNIN_USER = 'SIGNIN_USER';
 export const SIGNIN_USER_SUCCESS = 'SIGNIN_USER_SUCCESS';
 export const SIGNIN_USER_FAILURE = 'SIGNIN_USER_FAILURE';
 
-export const GET_INGO = 'GET_INFO';
-export const GET_INGO_SUCCESS = 'GET_INFO_SUCCESS';
-export const GET_INGO_FAILURE = 'GET_INFO_FAILURE';
+export const GET_TOKEN = 'GET_TOKEN';
+export const GET_TOKEN_SUCCESS = 'GET_TOKEN_SUCCESS';
+export const GET_TOKEN_FAILURE = 'GET_TOKEN_FAILURE';
+
+export const SET_TOKEN = 'SET_TOKEN';
 
 
 export function signInUser() {
+    // let res = "123234234";
     const request = axios.get(`https://oauth.vk.com/blank.html`);
     return{
         type: SIGNIN_USER,
@@ -32,26 +35,34 @@ export function signInUserFail(error) {
     }
 }
 
-export function getInfo(validateEmailToken) {
+export function getToken() {
 
-    const request = axios.get(`https://oauth.vk.com/blank.html`);
+    const request = "";
 
     return {
-        type: GET_INGO,
+        type: GET_TOKEN,
         payload: request
     };
 }
 
-export function getInfoSuccess(currentUser) {
+export function getTokenSuccess(currentUser) {
     return {
-        type: GET_INGO_SUCCESS,
+        type: GET_TOKEN_SUCCESS,
         payload: currentUser
     };
 }
 
-export function getInfoFailure(error) {
+export function getTokenFailure(error) {
     return {
-        type: GET_INGO_FAILURE,
+        type: GET_TOKEN_FAILURE,
         payload: error
     };
 }
+
+export function setToken(token) {
+    return{
+        type: SET_TOKEN,
+        payload: token
+    }
+}
+

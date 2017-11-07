@@ -14,15 +14,16 @@ class DrawerContainer extends React.Component {
         const {navigation} = this.props;
         return (
             <View style={styles.container}>
-                <Text
-                    onPress={() => navigation.navigate('screen1')}
-                    style={styles.menuItem}>
-                    SavedPosts
-                </Text>
+
                 <Text
                     onPress={() => navigation.navigate('screen2')}
                     style={styles.menuItem}>
                     LikedPosts
+                </Text>
+                <Text
+                    onPress={() => navigation.navigate('screen1')}
+                    style={styles.menuItem}>
+                    SavedPosts
                 </Text>
                 <Text
                     onPress={() => {
@@ -43,8 +44,8 @@ class DrawerContainer extends React.Component {
 
 
 const DrawerStack = DrawerNavigator({
-    screen1: {screen: SavePosts},
     screen2: {screen: LikedPosts},
+    screen1: {screen: SavePosts},
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer

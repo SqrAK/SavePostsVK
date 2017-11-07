@@ -2,34 +2,40 @@
  * Created by Alice on 27.09.2017.
  */
 import React from 'react';
-import { StyleSheet, Text, View, Button, Linking } from 'react-native';
+import {StyleSheet, Text, View, Button, Linking, WebView, AsyncStorage} from 'react-native';
+
+import queryString from 'query-string';
+// const queryString = require('query-string');
 
 export default class SignInComponent extends React.Component {
 
+
+
+    async setToken(token) {
+
+        await AsyncStorage.setItem('tokenUser', token);
+    }
+
+    _onNavigationStateChange(webViewState) {
+        let url = webViewState.url;
+        const parsed = queryString.parse(url);
+        let token = parsed["https://oauth.vk.com/blank.html#access_token"];
+        if (token) {
+            // this.props.setToken(token);
+            this.setToken(token);
+            this.props.navigation.navigate('drawerStack')
+        }
+
+    }
+
     render() {
-        const {user} = this.props;
         return (
-            <View style={styles.container}>
-                <Text>SignIn component</Text>
-                <Text>{user}</Text>
-                <Button
-                    title="Вход"
-                    onPress={ ()=>{ Linking.openURL('https://oauth.vk.com/authorize?client_id=6200644&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.52')}}
-                />
-                <Button
-                    title="Сделаем вид, что вошли"
-                    onPress={() => this.props.navigation.navigate('drawerStack')}
-                />
-            </View>
+            <WebView
+                source={{uri: 'https://oauth.vk.com/authorize?client_id=6200644&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.52'}}
+                onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                style={{marginTop: 20}}
+            />
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

@@ -10,7 +10,8 @@ export const FETCH_SAVED_POSTS_SUCCESS = 'FETCH_SAVED_POSTS_SUCCESS';
 export const FETCH_SAVED_POSTS_FAILURE = 'FETCH_SAVED_POSTS_FAILURE';
 
 
-export function fetchLikedPosts() {
+export function fetchLikedPosts(token) {
+
     return {
         type:FETCH_LIKED_POSTS,
         payload: 123

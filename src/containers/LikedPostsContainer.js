@@ -10,7 +10,8 @@ import {fetchLikedPosts, fetchLikedPostsFailure, fetchLikedPostsSuccess} from '.
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPost: () =>{
+        getPosts: () =>{
+            dispatch(fetchLikedPosts(token));
         }
     }
 };
