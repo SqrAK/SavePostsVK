@@ -8,19 +8,28 @@ import LikedPostsComponent from '../components/LikedPostsComponent';
 import { connect } from 'react-redux';
 import {fetchLikedPosts, fetchLikedPostsFailure, fetchLikedPostsSuccess} from '../actions/posts';
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        posts: state.posts.posts
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPosts: () =>{
-            dispatch(fetchLikedPosts(token));
+        getPosts: (token) =>{
+            let response = dispatch(fetchLikedPosts(token));
+           if (response.length != 0){
+                response.payload.then(
+                    (response) =>{
+                        dispatch(fetchLikedPostsSuccess(response))
+                    });
+            }
+
+
         }
     }
 };
 
-function mapStateToProps(state, ownProps) {
-    return {
-        posts: state.posts.posts,
-        test: "123"
-    };
-}
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(LikedPostsComponent);
