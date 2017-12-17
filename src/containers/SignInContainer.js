@@ -4,28 +4,20 @@
 import SignInComponent from '../components/SignInComponent';
 import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
-import {signInUser, signInUserFail, signInUserSuccess, setToken} from '../actions/user';
+import {onlineUser, signInUserFail, signInUserSuccess, setToken} from '../actions/user';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
-        signin1: () =>{
-            // dispatch(signInUser()).then((response) => {
-            //     !response.error ? dispatch(signInUserSuccess(response.payload.data)) : dispatch(signInUserFail(response.payload.data));
-            // });
-            // dispatch(signInUserSuccess());
-        },
-        setToken: (token) =>{
-
-            // dispatch(setToken(token));
+        setIsConn: (isConnected) =>{
+            dispatch(onlineUser(isConnected));
         }
     }
 }
 
 function mapStateToProps(state, ownProps) {
     return {
-        // user: state.user.user
-        token: state.user.token
+        token: state.user.token,
+        isConnected: state.user.isConnected
     };
 }
 

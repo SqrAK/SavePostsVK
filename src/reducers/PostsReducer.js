@@ -2,10 +2,12 @@
  * Created by Alice on 27.09.2017.
  */
 import {FETCH_LIKED_POSTS, FETCH_LIKED_POSTS_FAILURE, FETCH_LIKED_POSTS_SUCCESS,
-        FETCH_SAVED_POSTS, FETCH_SAVED_POSTS_FAILURE, FETCH_SAVED_POSTS_SUCCESS} from '../actions/posts';
+        OFFSET_POSTS, FETCH_SAVED_POSTS_FAILURE, FETCH_SAVED_POSTS_SUCCESS} from '../actions/posts';
 
 const initialState = {
-    posts: {}
+    posts: {},
+    savePosts: [],
+    offset: 0
 };
 
 export default function (state = initialState, action) {
@@ -13,15 +15,16 @@ export default function (state = initialState, action) {
         case FETCH_LIKED_POSTS:
             return {...state, posts: action.payload, status:'fetching', error:null, loading:true};
         case FETCH_LIKED_POSTS_SUCCESS:
-            return {...state, posts: action.payload.data.response, status:'successFetch', error:null, loading:true};
+
+            return {...state, posts: action.payload.posts, offset: action.payload.offset, status:'successFetch', error:null, loading:true};
         case FETCH_LIKED_POSTS_FAILURE:
             return {...state, posts: null, status:'fail', error:action.payload, loading:true};
-        case FETCH_SAVED_POSTS:
-            return {...state, posts: []};
+        case OFFSET_POSTS:
+            return {...state, offset:action.payload};
         case FETCH_SAVED_POSTS_SUCCESS:
-            return {...state, posts:action.payload};
+            return {...state, savePosts:action.payload};
         case FETCH_SAVED_POSTS_FAILURE:
-            return {...state, posts: []};
+            return {...state, savePosts: []};
         default:
             return initialState;
     }

@@ -6,7 +6,7 @@
  */
 import LikedPostsComponent from '../components/LikedPostsComponent';
 import { connect } from 'react-redux';
-import {fetchLikedPosts, fetchLikedPostsFailure, fetchLikedPostsSuccess, offsetPosts} from '../actions/posts';
+import {fetchNewsPosts, fetchNewsPostsSuccess, offsetPosts} from '../actions/posts';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -17,18 +17,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPosts: (token, offset, count) =>{
-            let response = dispatch(fetchLikedPosts(token, offset, count));
-           if (response.length != 0){
+        getNewsPosts: (token, offset, count) =>{
+            let response = dispatch(fetchNewsPosts(token, offset, count));
+            if (response.length != 0){
                 response.payload.then(
                     (response) =>{
-                        dispatch(fetchLikedPostsSuccess(response, offset))
+                        dispatch(fetchNewsPostsSuccess(response, offset))
                     });
             }
-        },
-        setOffset: (offset) =>{
-            dispatch(offsetPosts(offset));
-
         }
     }
 };

@@ -3,24 +3,21 @@
  */
 import SavePostsComponent from '../components/SavePostsComponent';
 import { connect } from 'react-redux';
-import {fetchSavedPosts, fetchSavedPostsSuccess, fetchSavedPostsFailure} from '../actions/posts';
+import {fetchSavedPosts} from '../actions/posts';
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        posts: state.posts.savePosts
+    };
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPost: () =>{
-            // dispatch(signInUser()).then((response) => {
-            //     !response.error ? dispatch(signInUserSuccess(response.payload.data)) : dispatch(signInUserFail(response.payload.data));
-            // });
-            // dispatch(fetchPostsSuccess());
+        getSavePosts: (posts) =>{
+            dispatch(fetchSavedPosts(posts));
         }
     }
 };
 
-function mapStateToProps(state, ownProps) {
-    return {
-        posts: state.posts.posts,
-        test: "123"
-    };
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavePostsComponent);

@@ -2,7 +2,7 @@
  * Created by Alice on 18.10.2017.
  */
 import React from 'react';
-import {StyleSheet, Text, View, Button, Animated, Easing} from 'react-native';
+import {StyleSheet, Text, View, Button, Animated, Easing, AsyncStorage} from 'react-native';
 import SignIn from './containers/SignInContainer';
 import SavePosts from './containers/SavePostContainer';
 import LikedPosts from './containers/LikedPostsContainer';
@@ -16,12 +16,12 @@ class DrawerContainer extends React.Component {
             <View style={styles.container}>
 
                 <Text
-                    onPress={() => navigation.navigate('screen2')}
+                    onPress={() => navigation.navigate('LikedPostsscreen')}
                     style={styles.menuItem}>
                     LikedPosts
                 </Text>
                 <Text
-                    onPress={() => navigation.navigate('screen1')}
+                    onPress={() => navigation.navigate('SavePostsscreen')}
                     style={styles.menuItem}>
                     SavedPosts
                 </Text>
@@ -32,7 +32,11 @@ class DrawerContainer extends React.Component {
                             key: null,
                             actions: [NavigationActions.navigate({ routeName: 'loginStack' })]
                         });
-                        this.props.navigation.dispatch(actionToDispatch)
+                        AsyncStorage.removeItem('tokenUser').then(() => {
+
+                           this.props.navigation.dispatch(actionToDispatch)
+                        });
+
                     }}
                     style={[styles.menuItem, styles.borderText]}>
                     Log Out
@@ -44,8 +48,8 @@ class DrawerContainer extends React.Component {
 
 
 const DrawerStack = DrawerNavigator({
-    screen2: {screen: LikedPosts},
-    screen1: {screen: SavePosts},
+    LikedPostsscreen: {screen: LikedPosts},
+    SavePostsscreen: {screen: SavePosts},
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer
