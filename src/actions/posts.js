@@ -7,6 +7,7 @@ export const FETCH_LIKED_POSTS_SUCCESS = 'FETCH_LIKED_POSTS_SUCCESS';
 export const FETCH_LIKED_POSTS_FAILURE = 'FETCH_LIKED_POSTS_FAILURE';
 
 export const OFFSET_POSTS = 'OFFSET_POSTS';
+export const FETCH_SAVED_POSTS = 'FETCH_SAVED_POSTS';
 export const FETCH_SAVED_POSTS_SUCCESS = 'FETCH_SAVED_POSTS_SUCCESS';
 export const FETCH_SAVED_POSTS_FAILURE = 'FETCH_SAVED_POSTS_FAILURE';
 
@@ -56,4 +57,25 @@ export function fetchNewsPostsSuccess(posts, offset) {
         payload: {posts:posts, offset:offset}
     }
 }
+export function fetchSavedPosts(posts) {
+    return {
+        type: FETCH_SAVED_POSTS,
+        payload: posts
+    }
+}
 
+
+
+export function fetchSavedPostsSuccess() {
+    return {
+        type: FETCH_LIKED_POSTS_SUCCESS,
+        payload: 321
+    }
+}
+
+export function fetchSavedPostsFailure() {
+    return {
+        type: FETCH_LIKED_POSTS_FAILURE,
+        payload: 987
+    }
+}

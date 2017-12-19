@@ -49,6 +49,7 @@ export default class SignInComponent extends React.Component {
     }
 
     _onNavigationStateChange(webViewState) {
+        
         let url = webViewState.url;
         const parsed = queryString.parse(url);
         let token = parsed["https://oauth.vk.com/blank.html#access_token"];
